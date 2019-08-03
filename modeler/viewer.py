@@ -1,6 +1,7 @@
 import numpy as np
 
 from OpenGL.GL import *
+from OpenGL.GLU import *
 from OpenGL.GLUT import *
 
 
@@ -32,8 +33,8 @@ class Viewer:
         glDepthFunc(GL_LESS)
 
         glEnable(GL_LIGHT0)
-        glLightfv(GL_LIGHT0, GL_POSITION, GL_float(0, 0, 1, 0))
-        glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, GLfloat(0, 0, -1))
+        glLightfv(GL_LIGHT0, GL_POSITION, GLfloat_4(0, 0, 1, 0))
+        glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, GLfloat_3(0, 0, -1))
         glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE)
         glClearColor(0.4, 0.4, 0.4, 0.4)
 
@@ -65,6 +66,49 @@ class Viewer:
         self.interaction.register_callback('place', self.place)
         self.interaction.register_callback('rotate_color', self.rotate_color)
         self.interaction.register_callback('scale', self.scale)
+
+    def render(self):
+        """ The render pass for the scene """
+        self.init_view()
+        
+        glEnable(GL_LIGHTING)
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+
+        # Load the modelview matrix from the current state of the trackball
+        glMatrixMode(GL_MODELVIEW)
+        glPushMatrix()
+        glLoadIdentity()
+        loc = self.interaction.translation
+        glTranslated(loc[0], loc[1], loc[2])
+        glMultMatrixf(self.interaction.trackball.matrix)
+
+        # Store the inverse of the current modelview
+        current_model_view = np.array(glGetFloatv(GL_MODELVIEW_MATRIX))
+        self.model_view = np.transpose(current_model_view)
+
+        # Render all objects
+        self.scene.render()
+
+        glDisable(GL_LIGHTING)
+        glCallList(G_OBJ_PLANE)
+        glPopMatrix()
+
+        # Flush the buffers so that the scene can be drawn.
+        glFlush()
+
+    def init_view(self):
+        """ Initialize the projection matrix """
+        x_size, y_size = glutGet(GLUT_WINDOW_WIDTH, glutGet(GLUT_WINDOW_HEIGHT))
+        aspect_ratio = float(x_size) / float(y_size)
+
+        # Load the projection matrix (always the same).
+        glMatrixMode(GL_PROJECTION)
+        glLoadIdentity()
+
+        glViewPort(0, 0, x_size, y_size)
+        gluPerspective(70, aspect_ratio, 0.1, 1000.0)
+        glTranslated(0, 0, -15)
+
 
     def main_loop():
         glutMainLoop()

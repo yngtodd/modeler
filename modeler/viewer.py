@@ -58,8 +58,18 @@ class Viewer:
         self.scene.add(snowman)
 
     def init_interaction(self):
-        pass
+        """ Initialize user interaction and callbacks """
+        self.interaction = Interaction()
+        self.interaction.register_callback('pick', self.pick)
+        self.interactino.register_callback('move', self.move)
+        self.interaction.register_callback('place', self.place)
+        self.interaction.register_callback('rotate_color', self.rotate_color)
+        self.interaction.register_callback('scale', self.scale)
+
+    def main_loop():
+        glutMainLoop()
 
 
 if __name__=='__main__':
     viewer = Viewer()
+    viewer.main_loop()

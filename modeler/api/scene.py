@@ -1,4 +1,5 @@
 class Scene:
+    """ Base class for scenes """
 
     # Default depth for the camera
     PLACE_DEPTH = 15

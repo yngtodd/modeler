@@ -33,3 +33,15 @@ class Node:
         raise NotImplementedError(
             "The abstract node class doesn't define `render_self`"
         )
+
+
+class HierarchicalNode(Node):
+    """ Node composed of multiple primitives """
+
+    def __init__(self):
+        super().__init__()
+        self.child_nodes = []
+
+    def render_self(self):
+        for child in child_nodes:
+            child.render()

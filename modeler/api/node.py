@@ -66,6 +66,16 @@ class Node:
             self.selected = select
         else:
             self.selected not self.selected
+        
+    def rotate_color(self, forwards):
+        """ Rotate the color of the object """
+        self.color_index += 1 if forwards else -1
+        if self.color_index > color.MAX_COLOR:
+            # Overflow
+            self.color_index = color.MIN_COLOR
+        if self.color_index < color.MIN_COLOR:
+            # Underflow
+            self.color_index = color.MAX_COLOR  
 
 
 class HierarchicalNode(Node):

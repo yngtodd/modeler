@@ -151,6 +151,31 @@ class Viewer:
         start, direction = self.get_ray(x, y)
         self.scene.pick(start, direction, self.model_view)
 
+    def move(self, x, y):
+        """ Move an object in the scene """
+        start, direction = self.get_ray(x, y)
+        self.scene.move_selected(start, direction, self.inverse_model_view)
+
+    def rotate_color(self, forward=True):
+        """ Rotate the color of the selected node 
+
+        Parameters
+        ----------
+        forward : bool
+            Indicates direction of the rotation
+        """
+        self.scene.rotate_selected_color(forward)
+
+    def scale(self, up):
+        """ Scale the selected node
+
+        Parameters
+        ----------
+        up : bool
+            Whether to increase the scale of the object
+        """
+        self.scene.scale_selected(up)
+
     def main_loop():
         glutMainLoop()
 

@@ -54,3 +54,8 @@ class Scene:
             nearest_node.depth = min_dist
             nearest_node.selected_loc = start + direction * min_dist
             self.selected_node = nearest_node
+    
+    def rotate_selected_color(self, forwards):
+        """ Rotate the color of the currently selected node """
+        if self.selected_node is None: return
+        self.selected_node.rotate_color(forwards)

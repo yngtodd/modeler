@@ -64,3 +64,36 @@ class Scene:
         """ Scale the current selection """
         if self.selected_node is None: return
         self.selected_node.scale(up)
+
+    def move_selected(self, start, direction, inv_model_view):
+        """ Move the selected object in the scene 
+
+        Parameters
+        ----------
+        start : np.ndarray
+            Starting point of the ray to move along
+
+        direction : np.ndarray
+            Direction of the ray to move along
+
+        inv_model_view:
+            inverse of the modelview matrix for the scene
+        """
+        if self.selected_node is None: return
+
+        # Find the current location and depth of the selected node
+        node = self.selected_node
+        dept = node.depth
+        old_loc = node.selected_loc
+
+        # The location of the node is the same depth along the new ray
+        new_loc = (start + direction * depth)
+
+        # Transform the translation with the model_view_matrix
+        translation = new_loc - old_loc
+        pre_translation = np.array([translation[0], translation[1], translation[2]])
+        translation = inv_model_view.dot(pre_translation)
+
+        # Translate the node and track its location
+        node.translate(translation[0], translation[1], translation[2])
+        node.selected_loc(new_loc)

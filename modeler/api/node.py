@@ -94,6 +94,13 @@ class Node:
         )
 
         self.aabb.scale(s)
+
+    def translate(self, x, y, z):
+        """ Translate the object """
+        self.translation_matrix = np.dot(
+            self.translation_matrix,
+            F.translation([x, y, z])
+        )
     
 
 class HierarchicalNode(Node):

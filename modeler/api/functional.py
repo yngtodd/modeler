@@ -20,3 +20,18 @@ def scaling(scale):
     scale_matrix[2, 2] = scale[2]
     scale_matrix[3, 3] = 1 
     return scale_matrix
+
+
+def translation(displacement):
+    """ Get a translation matrix for an object
+
+    Parameters
+    ----------
+    displacement : list(int, int, int)
+        Factors to displace the x, y, and z dims respectively
+    """
+    translation_matrix = np.identity(4)
+    translation_matrix[0, 3] = displacement[0]
+    translation_matrix[1, 3] = displacement[1]
+    translation_matrix[2, 3] = displacement[2]
+    return translation_matrix

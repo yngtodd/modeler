@@ -1,3 +1,6 @@
+import sys
+
+
 class Scene:
     """ Base class for scenes """
 
@@ -18,3 +21,36 @@ class Scene:
         """ Render the scene """
         for node in self.node_list:
             node.render()
+
+    def pick(self, start, direction, mat):
+        """ Execute selection
+
+        Parameters
+        ----------
+        start : np.ndarray
+            Starting point of a ray
+        
+        direction : np.ndarray
+            Direction of the ray
+
+        mat : np.ndarray
+            Inverse of the current model_view matrix of the scene
+        """
+        if selected_node is not None:
+            self.selected_node.select(False)
+            self.selected_node = None
+
+        # Keep track of the closest ray intersection
+        min_dist = sys.maxint
+        nearest_node = None
+        for node in self.node_list:
+            hit, distance = node.pick(start, direction, mat)
+            if hit and distance < min_dist:
+                min_dist, nearest_node = distance, node
+        
+        # If we hit something, keep track of it
+        if nearest_node is not None:
+            nearest_node.select()
+            nearest_node.depth = min_dist
+            nearest_node.selected_loc = start + direction * min_dist
+            self.selected_node = nearest_node

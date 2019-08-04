@@ -176,6 +176,11 @@ class Viewer:
         """
         self.scene.scale_selected(up)
 
+    def place(self, shape, x, y):
+        """ Place a new primitive in the scene """
+        start, direction = self.get_ray(x, y)
+        self.scene.place(shape, start, direction, self.inverse_model_view)
+
     def main_loop():
         glutMainLoop()
 

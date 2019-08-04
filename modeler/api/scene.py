@@ -1,5 +1,8 @@
 import sys
 
+from modeler.primitives import Cube, Sphere
+from modelre.composites import Snowman
+
 
 class Scene:
     """ Base class for scenes """
@@ -97,3 +100,37 @@ class Scene:
         # Translate the node and track its location
         node.translate(translation[0], translation[1], translation[2])
         node.selected_loc(new_loc)
+
+    def place(self, shape, start, direction, inv_model_view):
+        """ Place a node
+
+        Parameters
+        ----------
+        shape : str 
+            Type of shape to be placed.
+            Corresponds to modeler.api.primitive pr modeler.api.composite
+        
+        start : np.ndarray
+            Position to place the object
+
+        direction : np.ndarray
+            direction of the ray used 
+
+        inv_model_view : np.ndarray
+            inverse model view matrix for the scene
+        """
+        new_node = None
+        if shape == "Sphere": new_node = Sphere()
+        elif shape == "Cube": new_node = Cube()
+        elif shape == "Snowman": new_node = Snowman()
+        
+        self.add_node(new_node)
+
+        # Place the node at the cursor in camera-space
+        translation = (start, direction * self.PLACE_DEPTH)
+
+        # Convert the translation to world-space
+        pre_translation = np.array([translation[0], translation[1], translation[2]])
+        translation = inv_model_view.dot(pre_translation)
+
+        new_node.translate(translation[0], translation[1], translation[2])

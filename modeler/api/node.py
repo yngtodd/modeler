@@ -45,3 +45,8 @@ class HierarchicalNode(Node):
     def render_self(self):
         for child in child_nodes:
             child.render()
+
+    def compose(self):
+        raise NotImplementedError(
+            "Hierarchical nodes must define a way of composing primitives."
+        )

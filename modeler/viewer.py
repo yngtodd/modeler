@@ -109,6 +109,47 @@ class Viewer:
         gluPerspective(70, aspect_ratio, 0.1, 1000.0)
         glTranslated(0, 0, -15)
 
+    def get_ray(self, x, y):
+        """ Generate a ray
+        
+        Ray will be begin at the near plane, 
+        in the direction of the x, y coordinates.
+
+        Parameters
+        ----------
+        x : float
+            X-coordinate of mouse position
+        
+        y : float
+            Y-coordinate of mouse position
+
+        Returns
+        -------
+        start : np.ndarray
+            Start position of the ray
+        
+        direction : np.ndarray
+            Direction of the array
+        """
+        self.init_view()
+
+        glMatrixMode(GL_MODELVIEW)
+        glLoadIdentity()
+
+        # Get two points on the line
+        start = np.array(gluUnProject(x, y, 0.001))
+        end = np.array(dluUnProject(x, y, 0.999))
+
+        # Convert start and end points to a ray
+        direction = end - start
+        direction = direction / norm(direction)
+
+        return (start, direction)
+
+    def pick(self, x, y):
+        """ Execute pick of an object """
+        start, direction = self.get_ray(x, y)
+        self.scene.pick(start, direction, self.model_view)
 
     def main_loop():
         glutMainLoop()

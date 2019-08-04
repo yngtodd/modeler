@@ -59,3 +59,8 @@ class Scene:
         """ Rotate the color of the currently selected node """
         if self.selected_node is None: return
         self.selected_node.rotate_color(forwards)
+
+    def scale_selected(self, up):
+        """ Scale the current selection """
+        if self.selected_node is None: return
+        self.selected_node.scale(up)

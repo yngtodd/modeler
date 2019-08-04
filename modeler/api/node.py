@@ -4,6 +4,8 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
 
+import modeling.api.functional as F
+
 
 class Node:
     """ Base class for scene elements """
@@ -75,8 +77,24 @@ class Node:
             self.color_index = color.MIN_COLOR
         if self.color_index < color.MIN_COLOR:
             # Underflow
-            self.color_index = color.MAX_COLOR  
+            self.color_index = color.MAX_COLOR
 
+    def scale(self, up):
+        """ Scale the object by 10%
+
+        Parameters
+        ----------
+        up : bool
+            Whether to scale up or down
+        """
+        s = 1.1 if up else 0.9
+        self.scaling_matrix = np.dot(
+            self.scaling_matrix,
+            F.scaling([s, s, s])
+        )
+
+        self.aabb.scale(s)
+    
 
 class HierarchicalNode(Node):
     """ Node composed of multiple primitives """

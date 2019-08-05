@@ -11,7 +11,7 @@
 .. image:: https://badge.fury.io/py/python_modeler.png
     :target: http://badge.fury.io/py/python_modeler
 
-.. image:: https://travis-ci.org/yngtodd/python_modeler.png?branch=master
+.. image:: https://travis-ci.org/yngtodd/modeler.png?branch=master
     :target: https://travis-ci.org/yngtodd/python_modeler
 
 

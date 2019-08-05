@@ -15,7 +15,7 @@ if sys.argv[-1] == 'publish':
 
 
 setup(
-    name='modeler',
+    name='python_modeler',
     version='0.1.0',
     description='3D modeling in Python.',
     author='Todd Young',

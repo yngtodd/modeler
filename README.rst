@@ -12,7 +12,7 @@
     :target: http://badge.fury.io/py/python_modeler
 
 .. image:: https://travis-ci.org/yngtodd/modeler.png?branch=master
-    :target: https://travis-ci.org/yngtodd/python_modeler
+    :target: https://travis-ci.org/yngtodd/modeler
 
 
 =============================

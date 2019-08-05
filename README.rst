@@ -19,7 +19,7 @@
 Modeler
 =============================
 
-3D modeling in Python.
+3D modeling in Python. This project builds from Erick Dransch's excellent `3D modeller`_ tutorial.
 
 Documentation
 --------------
@@ -51,3 +51,4 @@ Once you have a copy of the source, you can install it with:
 
 .. _tarball: https://github.com/yngtodd/modeler/tarball/master
 .. _documentation: https://modeler.readthedocs.io/en/latest
+.. _3D modeller: http://aosabook.org/en/500L/a-3d-modeller.html

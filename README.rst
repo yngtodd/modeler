@@ -2,7 +2,7 @@
 
     <embed>
         <p align="center">
-            <img width="400" src="https://github.com/yngtodd/modeler/blob/master/img/modeler.png">
+            <img width="300" src="https://github.com/yngtodd/modeler/blob/master/img/modeler.png">
         </p>
     </embed>
 

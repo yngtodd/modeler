@@ -4,8 +4,8 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
 
-from modeler.settings import color
 import modeler.api.functional as F
+from modeler.api.settings import color
 
 
 class Node:

@@ -4,7 +4,8 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
 
-import modeling.api.functional as F
+from modeler.api import color
+import modeler.api.functional as F
 
 
 class Node:
@@ -22,7 +23,7 @@ class Node:
         glPushMatrix()
         glMultMatrixf(np.transpose(self.translation_matrix))
         glMultMatrixf(self.scaling_matrix)
-        color = self.color.COLORS[self.color_index]
+        color = color.COLORS[self.color_index]
         glColor3f(color[0], color[1], color[2])
 
         if self.selected:
@@ -67,7 +68,7 @@ class Node:
         if select is not None:
             self.selected = select
         else:
-            self.selected not self.selected
+            self.selected = not self.selected
         
     def rotate_color(self, forwards):
         """ Rotate the color of the object """

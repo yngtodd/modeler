@@ -1,7 +1,7 @@
 import sys
 
-from modeler.primitives import Cube, Sphere
-from modelre.composites import Snowman
+#from modeler.primitives import Cube, Sphere
+#from modeler.composites import Snowman
 
 
 class Scene:
@@ -32,7 +32,7 @@ class Scene:
         ----------
         start : np.ndarray
             Starting point of a ray
-        
+
         direction : np.ndarray
             Direction of the ray
 
@@ -50,14 +50,14 @@ class Scene:
             hit, distance = node.pick(start, direction, mat)
             if hit and distance < min_dist:
                 min_dist, nearest_node = distance, node
-        
+
         # If we hit something, keep track of it
         if nearest_node is not None:
             nearest_node.select()
             nearest_node.depth = min_dist
             nearest_node.selected_loc = start + direction * min_dist
             self.selected_node = nearest_node
-    
+
     def rotate_selected_color(self, forwards):
         """ Rotate the color of the currently selected node """
         if self.selected_node is None: return
@@ -69,7 +69,7 @@ class Scene:
         self.selected_node.scale(up)
 
     def move_selected(self, start, direction, inv_model_view):
-        """ Move the selected object in the scene 
+        """ Move the selected object in the scene
 
         Parameters
         ----------
@@ -106,15 +106,15 @@ class Scene:
 
         Parameters
         ----------
-        shape : str 
+        shape : str
             Type of shape to be placed.
             Corresponds to modeler.api.primitive pr modeler.api.composite
-        
+
         start : np.ndarray
             Position to place the object
 
         direction : np.ndarray
-            direction of the ray used 
+            direction of the ray used
 
         inv_model_view : np.ndarray
             inverse model view matrix for the scene
@@ -123,7 +123,7 @@ class Scene:
         if shape == "Sphere": new_node = Sphere()
         elif shape == "Cube": new_node = Cube()
         elif shape == "Snowman": new_node = Snowman()
-        
+
         self.add_node(new_node)
 
         # Place the node at the cursor in camera-space

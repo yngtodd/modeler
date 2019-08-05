@@ -4,6 +4,11 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
 
+from modeler.api.scene import Scene
+
+from modeler.primitives import Cube, Sphere
+from modeler.composites import Snowman
+
 
 class Viewer:
     """ Manage window creation and rendering """
@@ -70,7 +75,7 @@ class Viewer:
     def render(self):
         """ The render pass for the scene """
         self.init_view()
-        
+
         glEnable(GL_LIGHTING)
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
@@ -111,15 +116,15 @@ class Viewer:
 
     def get_ray(self, x, y):
         """ Generate a ray
-        
-        Ray will be begin at the near plane, 
+
+        Ray will be begin at the near plane,
         in the direction of the x, y coordinates.
 
         Parameters
         ----------
         x : float
             X-coordinate of mouse position
-        
+
         y : float
             Y-coordinate of mouse position
 
@@ -127,7 +132,7 @@ class Viewer:
         -------
         start : np.ndarray
             Start position of the ray
-        
+
         direction : np.ndarray
             Direction of the array
         """
@@ -157,7 +162,7 @@ class Viewer:
         self.scene.move_selected(start, direction, self.inverse_model_view)
 
     def rotate_color(self, forward=True):
-        """ Rotate the color of the selected node 
+        """ Rotate the color of the selected node
 
         Parameters
         ----------

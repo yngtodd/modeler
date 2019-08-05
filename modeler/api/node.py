@@ -4,7 +4,7 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
 
-from modeler.api import color
+from modeler.settings import color
 import modeler.api.functional as F
 
 
@@ -38,7 +38,7 @@ class Node:
         )
 
     def pick(self, start, direction, mat):
-        """ Determine whether a ray hits the object 
+        """ Determine whether a ray hits the object
 
         Parameters
         ----------
@@ -53,7 +53,7 @@ class Node:
 
         Returns
         -------
-        results : 
+        results :
         """
         new_mat = np.dot(
             np.dot(mat, self.translation_matrix),
@@ -69,7 +69,7 @@ class Node:
             self.selected = select
         else:
             self.selected = not self.selected
-        
+
     def rotate_color(self, forwards):
         """ Rotate the color of the object """
         self.color_index += 1 if forwards else -1
@@ -102,7 +102,7 @@ class Node:
             self.translation_matrix,
             F.translation([x, y, z])
         )
-    
+
 
 class HierarchicalNode(Node):
     """ Node composed of multiple primitives """
